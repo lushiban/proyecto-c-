@@ -20,8 +20,6 @@
 
 ```text
 SoundBridge/
-├── .github/
-│   └── pull_request_template.md
 ├── docs/
 │   └── DISECCION_CODIGO.md
 ├── ejemplos/
