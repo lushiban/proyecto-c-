@@ -1,4 +1,4 @@
-#include "rsm/infrastructure/PersistenciaTexto.hpp"
+#include "soundbridge/infrastructure/PersistenciaTexto.hpp"
 
 #include <algorithm>
 #include <filesystem>
@@ -8,16 +8,16 @@
 #include <string>
 #include <vector>
 
-#include "rsm/application/RedSocialMusical.hpp"
-#include "rsm/domain/Conexion.hpp"
-#include "rsm/domain/Perfil.hpp"
-#include "rsm/domain/PerfilArtista.hpp"
-#include "rsm/domain/PerfilFanClub.hpp"
-#include "rsm/domain/PerfilOyente.hpp"
-#include "rsm/domain/PerfilProductor.hpp"
-#include "rsm/domain/TipoPerfil.hpp"
+#include "soundbridge/application/SoundBridge.hpp"
+#include "soundbridge/domain/Conexion.hpp"
+#include "soundbridge/domain/Perfil.hpp"
+#include "soundbridge/domain/PerfilArtista.hpp"
+#include "soundbridge/domain/PerfilFanClub.hpp"
+#include "soundbridge/domain/PerfilOyente.hpp"
+#include "soundbridge/domain/PerfilProductor.hpp"
+#include "soundbridge/domain/TipoPerfil.hpp"
 
-namespace rsm {
+namespace soundbridge {
 namespace {
 
 const char* RUTA_PREDETERMINADA = "data/datos.txt";
@@ -412,14 +412,14 @@ std::filesystem::path crearRutaTemporal(
 }
 
 bool PersistenciaTexto::guardar(
-    const RedSocialMusical& red,
+    const SoundBridge& red,
     std::string& mensaje
 ) {
     return guardar(red, RUTA_PREDETERMINADA, mensaje);
 }
 
 bool PersistenciaTexto::guardar(
-    const RedSocialMusical& red,
+    const SoundBridge& red,
     const std::string& rutaArchivo,
     std::string& mensaje
 ) {
@@ -538,14 +538,14 @@ bool PersistenciaTexto::guardar(
 }
 
 bool PersistenciaTexto::cargar(
-    RedSocialMusical& red,
+    SoundBridge& red,
     std::string& mensaje
 ) {
     return cargar(red, RUTA_PREDETERMINADA, mensaje);
 }
 
 bool PersistenciaTexto::cargar(
-    RedSocialMusical& red,
+    SoundBridge& red,
     const std::string& rutaArchivo,
     std::string& mensaje
 ) {
@@ -560,7 +560,7 @@ bool PersistenciaTexto::cargar(
                 return false;
             }
 
-            RedSocialMusical temporal;
+            SoundBridge temporal;
             red.intercambiar(temporal);
             mensaje = "El archivo no existe. Se inicio una red vacia.";
             return true;
@@ -573,7 +573,7 @@ bool PersistenciaTexto::cargar(
             return false;
         }
 
-        RedSocialMusical temporal;
+        SoundBridge temporal;
         std::vector<ConexionPendiente> conexionesPendientes;
         std::string linea;
         int numeroLinea = 0;

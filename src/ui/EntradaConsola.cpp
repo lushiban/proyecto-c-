@@ -1,13 +1,13 @@
-#include "rsm/ui/EntradaConsola.hpp"
+#include "soundbridge/ui/EntradaConsola.hpp"
 
 #include <iostream>
 #include <limits>
 #include <sstream>
 #include <stdexcept>
 
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
-namespace rsm {
+namespace soundbridge {
 namespace {
 
 bool convertirEntero(const std::string& texto, int& valor) {

@@ -1,9 +1,9 @@
-#include "rsm/domain/Conexion.hpp"
+#include "soundbridge/domain/Conexion.hpp"
 
 #include <stdexcept>
 #include <utility>
 
-namespace rsm {
+namespace soundbridge {
 
 Conexion::Conexion(
     int perfilAId,

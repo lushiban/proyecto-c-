@@ -1,6 +1,6 @@
-#include "rsm/domain/TipoPerfil.hpp"
+#include "soundbridge/domain/TipoPerfil.hpp"
 
-namespace rsm {
+namespace soundbridge {
 
 const char* tipoPerfilATexto(TipoPerfil tipo) noexcept {
     switch (tipo) {

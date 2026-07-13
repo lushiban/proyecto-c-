@@ -8,8 +8,8 @@
 #include <utility>
 #include <vector>
 
-#include "rsm/application/ControladorAplicacion.hpp"
-#include "rsm/visualization/IVisualizadorGraficas.hpp"
+#include "soundbridge/application/ControladorAplicacion.hpp"
+#include "soundbridge/visualization/IVisualizadorGraficas.hpp"
 
 namespace {
 
@@ -19,24 +19,24 @@ void comprobar(bool condicion, const std::string& mensaje) {
     }
 }
 
-void comprobarMensaje(const rsm::ResultadoOperacion& resultado) {
+void comprobarMensaje(const soundbridge::ResultadoOperacion& resultado) {
     comprobar(!resultado.mensaje.empty(),
               "Toda operacion debe devolver un mensaje para la interfaz.");
 }
 
-class VisualizadorSimulado final : public rsm::IVisualizadorGraficas {
+class VisualizadorSimulado final : public soundbridge::IVisualizadorGraficas {
 public:
     int cantidadLlamadas = 0;
-    rsm::GraficaDTO ultimaGrafica;
+    soundbridge::GraficaDTO ultimaGrafica;
 
-    void mostrar(const rsm::GraficaDTO& grafica) override {
+    void mostrar(const soundbridge::GraficaDTO& grafica) override {
         cantidadLlamadas++;
         ultimaGrafica = grafica;
     }
 };
 
 struct DatosPrueba {
-    rsm::ControladorAplicacion controlador;
+    soundbridge::ControladorAplicacion controlador;
     int idPaula;
     int idEduardo;
     int idCamila;
@@ -47,7 +47,7 @@ struct DatosPrueba {
           idEduardo(0),
           idCamila(0),
           idFanClub(0) {
-        rsm::ResultadoCreacionPerfil paula = controlador.crearPerfilOyente(
+        soundbridge::ResultadoCreacionPerfil paula = controlador.crearPerfilOyente(
             "Paula",
             20,
             "Rock",
@@ -59,7 +59,7 @@ struct DatosPrueba {
                   "El perfil de prueba Paula debe crearse.");
         idPaula = paula.idPerfil;
 
-        rsm::ResultadoCreacionPerfil eduardo = controlador.crearPerfilArtista(
+        soundbridge::ResultadoCreacionPerfil eduardo = controlador.crearPerfilArtista(
             "Eduardo",
             21,
             "Rock",
@@ -72,7 +72,7 @@ struct DatosPrueba {
                   "El perfil de prueba Eduardo debe crearse.");
         idEduardo = eduardo.idPerfil;
 
-        rsm::ResultadoCreacionPerfil camila = controlador.crearPerfilProductor(
+        soundbridge::ResultadoCreacionPerfil camila = controlador.crearPerfilProductor(
             "Camila",
             24,
             "Salsa",
@@ -85,7 +85,7 @@ struct DatosPrueba {
                   "El perfil de prueba Camila debe crearse.");
         idCamila = camila.idPerfil;
 
-        rsm::ResultadoCreacionPerfil fanClub = controlador.crearPerfilFanClub(
+        soundbridge::ResultadoCreacionPerfil fanClub = controlador.crearPerfilFanClub(
             "Fans de Aurora",
             19,
             "Pop",
@@ -102,11 +102,11 @@ struct DatosPrueba {
 
 void probarFachadaAutonomaYModelos() {
     static_assert(
-        std::is_default_constructible<rsm::ControladorAplicacion>::value,
+        std::is_default_constructible<soundbridge::ControladorAplicacion>::value,
         "El front-end debe poder crear el controlador directamente."
     );
     static_assert(
-        !std::is_copy_constructible<rsm::ControladorAplicacion>::value,
+        !std::is_copy_constructible<soundbridge::ControladorAplicacion>::value,
         "El controlador no debe copiar el estado propietario."
     );
 
@@ -115,7 +115,7 @@ void probarFachadaAutonomaYModelos() {
     comprobar(datos.controlador.obtenerCantidadPerfiles() == 4,
               "Deben existir cuatro perfiles.");
 
-    std::vector<rsm::PerfilDTO> perfiles = datos.controlador.obtenerPerfiles();
+    std::vector<soundbridge::PerfilDTO> perfiles = datos.controlador.obtenerPerfiles();
     comprobar(perfiles.size() == 4,
               "La lista debe contener cuatro perfiles.");
     comprobar(perfiles[0].id == 1 && perfiles[0].tipo == "Oyente",
@@ -123,7 +123,7 @@ void probarFachadaAutonomaYModelos() {
     comprobar(perfiles[0].camposEspecificos.size() == 2,
               "El oyente debe exponer dos campos especificos.");
 
-    rsm::ResultadoConsultaPerfil artista =
+    soundbridge::ResultadoConsultaPerfil artista =
         datos.controlador.buscarPerfil(datos.idEduardo);
     comprobar(artista.resultado.correcto,
               "El artista creado debe encontrarse.");
@@ -140,29 +140,29 @@ void probarFachadaAutonomaYModelos() {
 }
 
 void probarValidacionesDePerfiles() {
-    rsm::ControladorAplicacion controlador;
+    soundbridge::ControladorAplicacion controlador;
 
-    rsm::ResultadoCreacionPerfil nombreVacio = controlador.crearPerfilOyente(
+    soundbridge::ResultadoCreacionPerfil nombreVacio = controlador.crearPerfilOyente(
         "   ", 20, "Rock", {"Pop"}, 5, "Spotify"
     );
     comprobar(!nombreVacio.resultado.correcto,
               "Un nombre vacio debe rechazarse.");
     comprobarMensaje(nombreVacio.resultado);
 
-    rsm::ResultadoCreacionPerfil edadInvalida = controlador.crearPerfilOyente(
+    soundbridge::ResultadoCreacionPerfil edadInvalida = controlador.crearPerfilOyente(
         "Persona", 12, "Rock", {"Pop"}, 5, "Spotify"
     );
     comprobar(!edadInvalida.resultado.correcto,
               "Una edad menor a 13 debe rechazarse.");
 
-    rsm::ResultadoCreacionPerfil secundariosVacios =
+    soundbridge::ResultadoCreacionPerfil secundariosVacios =
         controlador.crearPerfilOyente(
             "Persona", 20, "Rock", {}, 5, "Spotify"
         );
     comprobar(!secundariosVacios.resultado.correcto,
               "Debe existir al menos un genero secundario.");
 
-    rsm::ResultadoCreacionPerfil generoRepetido =
+    soundbridge::ResultadoCreacionPerfil generoRepetido =
         controlador.crearPerfilArtista(
             "Artista", 20, "Rock", {" rock "},
             "Nombre", "Guitarra", false
@@ -170,7 +170,7 @@ void probarValidacionesDePerfiles() {
     comprobar(!generoRepetido.resultado.correcto,
               "El genero principal repetido debe rechazarse.");
 
-    rsm::ResultadoCreacionPerfil secundariosDuplicados =
+    soundbridge::ResultadoCreacionPerfil secundariosDuplicados =
         controlador.crearPerfilProductor(
             "Productor", 30, "Rock", {"Pop", " pop "},
             "FL Studio", 3, true
@@ -178,14 +178,14 @@ void probarValidacionesDePerfiles() {
     comprobar(!secundariosDuplicados.resultado.correcto,
               "Los generos secundarios duplicados deben rechazarse.");
 
-    rsm::ResultadoCreacionPerfil horasInvalidas =
+    soundbridge::ResultadoCreacionPerfil horasInvalidas =
         controlador.crearPerfilOyente(
             "Oyente", 20, "Rock", {"Pop"}, 169, "Spotify"
         );
     comprobar(!horasInvalidas.resultado.correcto,
               "Las horas mayores a 168 deben rechazarse.");
 
-    rsm::ResultadoCreacionPerfil artistaInvalido =
+    soundbridge::ResultadoCreacionPerfil artistaInvalido =
         controlador.crearPerfilArtista(
             "Artista", 20, "Rock", {"Pop"},
             "", "Guitarra", false
@@ -193,7 +193,7 @@ void probarValidacionesDePerfiles() {
     comprobar(!artistaInvalido.resultado.correcto,
               "El nombre artistico vacio debe rechazarse.");
 
-    rsm::ResultadoCreacionPerfil productorInvalido =
+    soundbridge::ResultadoCreacionPerfil productorInvalido =
         controlador.crearPerfilProductor(
             "Productor", 30, "Rock", {"Pop"},
             "Ableton", 81, true
@@ -201,7 +201,7 @@ void probarValidacionesDePerfiles() {
     comprobar(!productorInvalido.resultado.correcto,
               "Mas de 80 anios de experiencia deben rechazarse.");
 
-    rsm::ResultadoCreacionPerfil fanClubInvalido =
+    soundbridge::ResultadoCreacionPerfil fanClubInvalido =
         controlador.crearPerfilFanClub(
             "Club", 20, "Pop", {"Rock"},
             "Artista", 0, "Quito"
@@ -212,7 +212,7 @@ void probarValidacionesDePerfiles() {
     comprobar(controlador.obtenerCantidadPerfiles() == 0,
               "Las validaciones fallidas no deben modificar el estado.");
 
-    rsm::ResultadoConsultaPerfil idInvalido = controlador.buscarPerfil(0);
+    soundbridge::ResultadoConsultaPerfil idInvalido = controlador.buscarPerfil(0);
     comprobar(!idInvalido.resultado.correcto,
               "Un ID igual a cero debe rechazarse.");
     comprobarMensaje(idInvalido.resultado);
@@ -221,7 +221,7 @@ void probarValidacionesDePerfiles() {
 void probarAfinidadYConexiones() {
     DatosPrueba datos;
 
-    rsm::ResultadoAfinidad afinidad = datos.controlador.calcularAfinidad(
+    soundbridge::ResultadoAfinidad afinidad = datos.controlador.calcularAfinidad(
         datos.idPaula,
         datos.idEduardo
     );
@@ -229,42 +229,42 @@ void probarAfinidadYConexiones() {
               "La afinidad Rock con un secundario compartido debe ser 65.");
     comprobarMensaje(afinidad.resultado);
 
-    rsm::ResultadoAfinidad mismaPersona = datos.controlador.calcularAfinidad(
+    soundbridge::ResultadoAfinidad mismaPersona = datos.controlador.calcularAfinidad(
         datos.idPaula,
         datos.idPaula
     );
     comprobar(!mismaPersona.resultado.correcto,
               "No debe calcularse afinidad con el mismo perfil.");
 
-    rsm::ResultadoConexionAplicacion creada = datos.controlador.crearConexion(
+    soundbridge::ResultadoConexionAplicacion creada = datos.controlador.crearConexion(
         datos.idPaula,
         datos.idEduardo
     );
     comprobar(creada.resultado.correcto && creada.afinidad == 65,
               "La conexion compatible debe crearse.");
 
-    rsm::ResultadoConexionAplicacion duplicada =
+    soundbridge::ResultadoConexionAplicacion duplicada =
         datos.controlador.crearConexion(datos.idEduardo, datos.idPaula);
     comprobar(!duplicada.resultado.correcto,
               "La conexion inversa duplicada debe rechazarse.");
     comprobarMensaje(duplicada.resultado);
 
-    rsm::ResultadoConexionAplicacion autoconexion =
+    soundbridge::ResultadoConexionAplicacion autoconexion =
         datos.controlador.crearConexion(datos.idPaula, datos.idPaula);
     comprobar(!autoconexion.resultado.correcto,
               "La autoconexion debe rechazarse.");
 
-    rsm::ResultadoConexionAplicacion inexistente =
+    soundbridge::ResultadoConexionAplicacion inexistente =
         datos.controlador.crearConexion(datos.idPaula, 999);
     comprobar(!inexistente.resultado.correcto,
               "Una conexion con perfil inexistente debe rechazarse.");
 
-    rsm::ResultadoConexionAplicacion insuficiente =
+    soundbridge::ResultadoConexionAplicacion insuficiente =
         datos.controlador.crearConexion(datos.idPaula, datos.idCamila);
     comprobar(!insuficiente.resultado.correcto,
               "Una afinidad menor a 40 debe rechazarse.");
 
-    std::vector<rsm::ConexionDTO> conexiones =
+    std::vector<soundbridge::ConexionDTO> conexiones =
         datos.controlador.obtenerConexiones();
     comprobar(conexiones.size() == 1,
               "Solo debe existir una conexion valida.");
@@ -273,7 +273,7 @@ void probarAfinidadYConexiones() {
                   && conexiones[0].afinidad == 65,
               "La conexion debe devolver datos completos para la interfaz.");
 
-    rsm::ResultadoOperacion eliminada = datos.controlador.eliminarConexion(
+    soundbridge::ResultadoOperacion eliminada = datos.controlador.eliminarConexion(
         datos.idPaula,
         datos.idEduardo
     );
@@ -283,14 +283,14 @@ void probarAfinidadYConexiones() {
     comprobar(datos.controlador.obtenerCantidadConexiones() == 0,
               "La lista debe quedar sin conexiones.");
 
-    rsm::ResultadoOperacion segundaEliminacion =
+    soundbridge::ResultadoOperacion segundaEliminacion =
         datos.controlador.eliminarConexion(datos.idPaula, datos.idEduardo);
     comprobar(!segundaEliminacion.correcto,
               "Eliminar una conexion inexistente debe devolver error.");
 }
 
 void probarCompatibilidadYOrden() {
-    rsm::ControladorAplicacion controlador;
+    soundbridge::ControladorAplicacion controlador;
 
     int principal = controlador.crearPerfilOyente(
         "Principal", 20, "Rock", {"Pop"}, 10, "Spotify"
@@ -308,7 +308,7 @@ void probarCompatibilidadYOrden() {
         "Grupo", 10, "Quito"
     );
 
-    rsm::ResultadoCompatibles compatibles =
+    soundbridge::ResultadoCompatibles compatibles =
         controlador.buscarPerfilesCompatibles(principal);
     comprobar(compatibles.resultado.correcto,
               "La consulta de compatibilidad debe ser correcta.");
@@ -325,7 +325,7 @@ void probarCompatibilidadYOrden() {
                   && compatibles.perfiles[0].id == segundo,
               "Una conexion existente debe excluirse de compatibles.");
 
-    rsm::ResultadoCompatibles perfilInexistente =
+    soundbridge::ResultadoCompatibles perfilInexistente =
         controlador.buscarPerfilesCompatibles(999);
     comprobar(!perfilInexistente.resultado.correcto,
               "La compatibilidad de un perfil inexistente debe fallar.");
@@ -337,7 +337,7 @@ void probarEliminacionEnCascada() {
     comprobar(datos.controlador.obtenerCantidadConexiones() == 1,
               "Debe existir una conexion antes de eliminar.");
 
-    rsm::ResultadoOperacion eliminado =
+    soundbridge::ResultadoOperacion eliminado =
         datos.controlador.eliminarPerfil(datos.idPaula);
     comprobar(eliminado.correcto, "El perfil debe eliminarse.");
     comprobarMensaje(eliminado);
@@ -350,9 +350,9 @@ void probarEliminacionEnCascada() {
 }
 
 void probarEstadisticasYVisualizador() {
-    rsm::ControladorAplicacion vacio;
-    rsm::GraficaDTO tiposVacios = vacio.obtenerGraficaPerfilesPorTipo();
-    rsm::GraficaDTO rangosVacios =
+    soundbridge::ControladorAplicacion vacio;
+    soundbridge::GraficaDTO tiposVacios = vacio.obtenerGraficaPerfilesPorTipo();
+    soundbridge::GraficaDTO rangosVacios =
         vacio.obtenerGraficaConexionesPorAfinidad();
     comprobar(tiposVacios.puntos.size() == 4,
               "La grafica vacia por tipo debe conservar cuatro categorias.");
@@ -362,7 +362,7 @@ void probarEstadisticasYVisualizador() {
     DatosPrueba datos;
     datos.controlador.crearConexion(datos.idPaula, datos.idEduardo);
 
-    rsm::GraficaDTO tipos = datos.controlador.obtenerGraficaPerfilesPorTipo();
+    soundbridge::GraficaDTO tipos = datos.controlador.obtenerGraficaPerfilesPorTipo();
     comprobar(tipos.puntos.size() == 4,
               "La grafica por tipo debe conservar cuatro categorias.");
     comprobar(tipos.puntos[0].valor == 1.0
@@ -371,7 +371,7 @@ void probarEstadisticasYVisualizador() {
                   && tipos.puntos[3].valor == 1.0,
               "Cada tipo debe tener un perfil.");
 
-    rsm::GraficaDTO conexiones =
+    soundbridge::GraficaDTO conexiones =
         datos.controlador.obtenerGraficaConexionesPorAfinidad();
     comprobar(conexiones.puntos[1].valor == 1.0,
               "La conexion de 65 debe estar en el rango 60-79.");
@@ -387,14 +387,14 @@ void probarEstadisticasYVisualizador() {
 void probarPersistenciaYRecuperacion() {
     namespace fs = std::filesystem;
 
-    fs::path carpeta = fs::temp_directory_path() / "rsm_pruebas_fase10";
+    fs::path carpeta = fs::temp_directory_path() / "soundbridge_pruebas_fase10";
     fs::remove_all(carpeta);
     fs::create_directories(carpeta);
     fs::path ruta = carpeta / "datos.txt";
 
     {
-        rsm::ControladorAplicacion controlador;
-        rsm::ResultadoCreacionPerfil primero = controlador.crearPerfilOyente(
+        soundbridge::ControladorAplicacion controlador;
+        soundbridge::ResultadoCreacionPerfil primero = controlador.crearPerfilOyente(
             "Ana|Luz",
             25,
             "Rock;Alternativo",
@@ -402,7 +402,7 @@ void probarPersistenciaYRecuperacion() {
             12,
             "Plataforma\nLocal"
         );
-        rsm::ResultadoCreacionPerfil segundo = controlador.crearPerfilArtista(
+        soundbridge::ResultadoCreacionPerfil segundo = controlador.crearPerfilArtista(
             "Eduardo",
             21,
             "Rock;Alternativo",
@@ -419,15 +419,15 @@ void probarPersistenciaYRecuperacion() {
                   ).resultado.correcto,
                   "La conexion de persistencia debe crearse.");
 
-        rsm::ResultadoOperacion guardado =
+        soundbridge::ResultadoOperacion guardado =
             controlador.guardarDatos(ruta.string());
         comprobar(guardado.correcto, "El archivo debe guardarse.");
         comprobarMensaje(guardado);
         comprobar(fs::exists(ruta), "El archivo guardado debe existir.");
     }
 
-    rsm::ControladorAplicacion controladorCargado;
-    rsm::ResultadoOperacion carga =
+    soundbridge::ControladorAplicacion controladorCargado;
+    soundbridge::ResultadoOperacion carga =
         controladorCargado.cargarDatos(ruta.string());
     comprobar(carga.correcto, "Los datos guardados deben cargarse.");
     comprobarMensaje(carga);
@@ -436,26 +436,26 @@ void probarPersistenciaYRecuperacion() {
     comprobar(controladorCargado.obtenerCantidadConexiones() == 1,
               "La carga debe recuperar una conexion.");
 
-    rsm::ResultadoConsultaPerfil recuperado =
+    soundbridge::ResultadoConsultaPerfil recuperado =
         controladorCargado.buscarPerfil(1);
     comprobar(recuperado.resultado.correcto
                   && recuperado.perfil.nombre == "Ana|Luz"
                   && recuperado.perfil.generoPrincipal == "Rock;Alternativo",
               "Los caracteres reservados deben recuperarse sin cambios.");
 
-    rsm::ResultadoCreacionPerfil nuevo =
+    soundbridge::ResultadoCreacionPerfil nuevo =
         controladorCargado.crearPerfilOyente(
             "Nuevo", 30, "Jazz", {"Blues"}, 8, "Deezer"
         );
     comprobar(nuevo.resultado.correcto && nuevo.idPerfil == 3,
               "El siguiente ID debe conservarse despues de cargar.");
 
-    rsm::ResultadoOperacion segundoGuardado =
+    soundbridge::ResultadoOperacion segundoGuardado =
         controladorCargado.guardarDatos(ruta.string());
     comprobar(segundoGuardado.correcto,
               "Los cambios posteriores deben guardarse.");
 
-    rsm::ControladorAplicacion segundaEjecucion;
+    soundbridge::ControladorAplicacion segundaEjecucion;
     comprobar(segundaEjecucion.cargarDatos(ruta.string()).correcto,
               "Una nueva instancia debe recuperar el archivo actualizado.");
     comprobar(segundaEjecucion.obtenerCantidadPerfiles() == 3,
@@ -468,7 +468,7 @@ void probarArchivoInvalidoNoReemplazaEstado() {
     namespace fs = std::filesystem;
 
     fs::path carpeta = fs::temp_directory_path()
-                       / "rsm_prueba_invalida_fase10";
+                       / "soundbridge_prueba_invalida_fase10";
     fs::remove_all(carpeta);
     fs::create_directories(carpeta);
     fs::path ruta = carpeta / "datos.txt";
@@ -479,12 +479,12 @@ void probarArchivoInvalidoNoReemplazaEstado() {
     salida << "PROFILE|1|OYENTE|Dato incompleto\n";
     salida.close();
 
-    rsm::ControladorAplicacion controlador;
+    soundbridge::ControladorAplicacion controlador;
     controlador.crearPerfilOyente(
         "Existente", 20, "Rock", {"Pop"}, 5, "Spotify"
     );
 
-    rsm::ResultadoOperacion carga = controlador.cargarDatos(ruta.string());
+    soundbridge::ResultadoOperacion carga = controlador.cargarDatos(ruta.string());
     comprobar(!carga.correcto, "El archivo incompleto debe rechazarse.");
     comprobarMensaje(carga);
     comprobar(controlador.obtenerCantidadPerfiles() == 1,
@@ -498,12 +498,12 @@ void probarArchivoInvalidoNoReemplazaEstado() {
 void probarInicioSinArchivo() {
     namespace fs = std::filesystem;
 
-    fs::path carpeta = fs::temp_directory_path() / "rsm_sin_archivo_fase10";
+    fs::path carpeta = fs::temp_directory_path() / "soundbridge_sin_archivo_fase10";
     fs::remove_all(carpeta);
     fs::path ruta = carpeta / "datos.txt";
 
-    rsm::ControladorAplicacion controlador;
-    rsm::ResultadoOperacion carga = controlador.cargarDatos(ruta.string());
+    soundbridge::ControladorAplicacion controlador;
+    soundbridge::ResultadoOperacion carga = controlador.cargarDatos(ruta.string());
     comprobar(carga.correcto,
               "La falta del archivo inicial debe manejarse correctamente.");
     comprobarMensaje(carga);

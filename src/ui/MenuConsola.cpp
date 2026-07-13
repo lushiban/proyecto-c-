@@ -1,15 +1,15 @@
-#include "rsm/ui/MenuConsola.hpp"
+#include "soundbridge/ui/MenuConsola.hpp"
 
 #include <exception>
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include "rsm/application/ControladorAplicacion.hpp"
-#include "rsm/ui/EntradaConsola.hpp"
-#include "rsm/visualization/IVisualizadorGraficas.hpp"
+#include "soundbridge/application/ControladorAplicacion.hpp"
+#include "soundbridge/ui/EntradaConsola.hpp"
+#include "soundbridge/visualization/IVisualizadorGraficas.hpp"
 
-namespace rsm {
+namespace soundbridge {
 
 MenuConsola::MenuConsola(
     ControladorAplicacion& controlador,

@@ -1,14 +1,14 @@
-#include "rsm/application/ServicioEstadisticas.hpp"
+#include "soundbridge/application/ServicioEstadisticas.hpp"
 
 #include <utility>
 
-#include "rsm/application/RedSocialMusical.hpp"
-#include "rsm/domain/Conexion.hpp"
-#include "rsm/domain/Perfil.hpp"
-#include "rsm/domain/TipoPerfil.hpp"
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/application/SoundBridge.hpp"
+#include "soundbridge/domain/Conexion.hpp"
+#include "soundbridge/domain/Perfil.hpp"
+#include "soundbridge/domain/TipoPerfil.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
-namespace rsm {
+namespace soundbridge {
 namespace {
 
 void ordenarPuntosPorCantidad(std::vector<PuntoGrafica>& puntos) {
@@ -29,7 +29,7 @@ void ordenarPuntosPorCantidad(std::vector<PuntoGrafica>& puntos) {
 }
 
 GraficaDTO ServicioEstadisticas::crearGraficaPerfilesPorGenero(
-    const RedSocialMusical& red
+    const SoundBridge& red
 ) const {
     GraficaDTO grafica;
     grafica.titulo = "Perfiles por genero musical";
@@ -68,7 +68,7 @@ GraficaDTO ServicioEstadisticas::crearGraficaPerfilesPorGenero(
 }
 
 GraficaDTO ServicioEstadisticas::crearGraficaPerfilesPorTipo(
-    const RedSocialMusical& red
+    const SoundBridge& red
 ) const {
     GraficaDTO grafica;
     grafica.titulo = "Perfiles por tipo";
@@ -109,7 +109,7 @@ GraficaDTO ServicioEstadisticas::crearGraficaPerfilesPorTipo(
 }
 
 GraficaDTO ServicioEstadisticas::crearGraficaConexionesPorAfinidad(
-    const RedSocialMusical& red
+    const SoundBridge& red
 ) const {
     GraficaDTO grafica;
     grafica.titulo = "Conexiones por rango de afinidad";

@@ -1,8 +1,8 @@
-#include "rsm/visualization/VisualizadorNoDisponible.hpp"
+#include "soundbridge/visualization/VisualizadorNoDisponible.hpp"
 
 #include <iostream>
 
-namespace rsm {
+namespace soundbridge {
 
 void VisualizadorNoDisponible::mostrar(const GraficaDTO& grafica) {
     (void)grafica;

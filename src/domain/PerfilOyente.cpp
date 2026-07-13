@@ -1,12 +1,12 @@
-#include "rsm/domain/PerfilOyente.hpp"
+#include "soundbridge/domain/PerfilOyente.hpp"
 
 #include <ostream>
 #include <stdexcept>
 #include <utility>
 
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
-namespace rsm {
+namespace soundbridge {
 
 PerfilOyente::PerfilOyente(
     int id,

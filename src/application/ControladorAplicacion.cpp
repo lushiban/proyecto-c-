@@ -1,21 +1,21 @@
-#include "rsm/application/ControladorAplicacion.hpp"
+#include "soundbridge/application/ControladorAplicacion.hpp"
 
 #include <exception>
 #include <string>
 #include <vector>
 
-#include "rsm/application/RedSocialMusical.hpp"
-#include "rsm/application/ServicioEstadisticas.hpp"
-#include "rsm/domain/Conexion.hpp"
-#include "rsm/domain/Perfil.hpp"
-#include "rsm/domain/PerfilArtista.hpp"
-#include "rsm/domain/PerfilFanClub.hpp"
-#include "rsm/domain/PerfilOyente.hpp"
-#include "rsm/domain/PerfilProductor.hpp"
-#include "rsm/domain/TipoPerfil.hpp"
-#include "rsm/infrastructure/PersistenciaTexto.hpp"
+#include "soundbridge/application/SoundBridge.hpp"
+#include "soundbridge/application/ServicioEstadisticas.hpp"
+#include "soundbridge/domain/Conexion.hpp"
+#include "soundbridge/domain/Perfil.hpp"
+#include "soundbridge/domain/PerfilArtista.hpp"
+#include "soundbridge/domain/PerfilFanClub.hpp"
+#include "soundbridge/domain/PerfilOyente.hpp"
+#include "soundbridge/domain/PerfilProductor.hpp"
+#include "soundbridge/domain/TipoPerfil.hpp"
+#include "soundbridge/infrastructure/PersistenciaTexto.hpp"
 
-namespace rsm {
+namespace soundbridge {
 namespace {
 
 ResultadoOperacion crearResultado(bool correcto, const std::string& mensaje) {

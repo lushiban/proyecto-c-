@@ -1,12 +1,12 @@
-#include "rsm/domain/PerfilFanClub.hpp"
+#include "soundbridge/domain/PerfilFanClub.hpp"
 
 #include <ostream>
 #include <stdexcept>
 #include <utility>
 
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
-namespace rsm {
+namespace soundbridge {
 
 PerfilFanClub::PerfilFanClub(
     int id,

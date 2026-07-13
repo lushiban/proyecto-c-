@@ -1,12 +1,12 @@
-#include "rsm/domain/PerfilProductor.hpp"
+#include "soundbridge/domain/PerfilProductor.hpp"
 
 #include <ostream>
 #include <stdexcept>
 #include <utility>
 
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
-namespace rsm {
+namespace soundbridge {
 
 PerfilProductor::PerfilProductor(
     int id,

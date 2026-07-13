@@ -1,12 +1,12 @@
-#include "rsm/domain/PerfilArtista.hpp"
+#include "soundbridge/domain/PerfilArtista.hpp"
 
 #include <ostream>
 #include <stdexcept>
 #include <utility>
 
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
-namespace rsm {
+namespace soundbridge {
 
 PerfilArtista::PerfilArtista(
     int id,

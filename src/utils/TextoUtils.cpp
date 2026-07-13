@@ -1,8 +1,8 @@
-#include "rsm/utils/TextoUtils.hpp"
+#include "soundbridge/utils/TextoUtils.hpp"
 
 #include <cctype>
 
-namespace rsm {
+namespace soundbridge {
 
 std::string recortarTexto(const std::string& texto) {
     std::size_t inicio = 0;
