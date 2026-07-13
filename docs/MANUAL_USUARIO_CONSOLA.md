@@ -10,7 +10,7 @@ funciones principales mientras se desarrolla una nueva interfaz visual.
 Ejecute:
 
 ```bash
-./build/red_social_musical
+./build/soundbridge
 ```
 
 El programa intenta cargar `data/datos.txt`. Si no existe, inicia con una red

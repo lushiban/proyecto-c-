@@ -7,10 +7,10 @@ implementar el framework visual.
 ## 1. Inicialización y carga
 
 ```cpp
-#include "rsm/application/ControladorAplicacion.hpp"
+#include "soundbridge/application/ControladorAplicacion.hpp"
 
-rsm::ControladorAplicacion controlador;
-rsm::ResultadoOperacion carga = controlador.cargarDatos();
+soundbridge::ControladorAplicacion controlador;
+soundbridge::ResultadoOperacion carga = controlador.cargarDatos();
 
 if (carga.correcto) {
     mostrarExito(carga.mensaje);
@@ -25,7 +25,7 @@ mensajes pertenecen al front-end.
 ## 2. Actualizar una lista de perfiles
 
 ```cpp
-std::vector<rsm::PerfilDTO> perfiles = controlador.obtenerPerfiles();
+std::vector<soundbridge::PerfilDTO> perfiles = controlador.obtenerPerfiles();
 
 if (perfiles.empty()) {
     mostrarEstadoVacio("No existen perfiles registrados.");
@@ -56,7 +56,7 @@ mostrarExito(
     + " ID: " + std::to_string(respuesta.idPerfil)
 );
 
-rsm::ResultadoOperacion guardado = controlador.guardarDatos();
+soundbridge::ResultadoOperacion guardado = controlador.guardarDatos();
 mostrarMensajeGuardado(guardado.correcto, guardado.mensaje);
 ```
 
@@ -97,7 +97,7 @@ auto fanClub = controlador.crearPerfilFanClub(
 ## 5. Buscar un perfil
 
 ```cpp
-rsm::ResultadoConsultaPerfil respuesta = controlador.buscarPerfil(idBuscado);
+soundbridge::ResultadoConsultaPerfil respuesta = controlador.buscarPerfil(idBuscado);
 
 if (respuesta.resultado.correcto) {
     mostrarDetalle(respuesta.perfil);
@@ -109,7 +109,7 @@ if (respuesta.resultado.correcto) {
 ## 6. Buscar compatibles
 
 ```cpp
-rsm::ResultadoCompatibles respuesta =
+soundbridge::ResultadoCompatibles respuesta =
     controlador.buscarPerfilesCompatibles(idPerfil);
 
 if (!respuesta.resultado.correcto) {
@@ -123,7 +123,7 @@ mostrarCompatibles(respuesta.perfiles);
 ## 7. Calcular afinidad antes de conectar
 
 ```cpp
-rsm::ResultadoAfinidad afinidad =
+soundbridge::ResultadoAfinidad afinidad =
     controlador.calcularAfinidad(perfilAId, perfilBId);
 
 if (afinidad.resultado.correcto) {
@@ -136,7 +136,7 @@ if (afinidad.resultado.correcto) {
 ## 8. Crear conexión
 
 ```cpp
-rsm::ResultadoConexionAplicacion respuesta =
+soundbridge::ResultadoConexionAplicacion respuesta =
     controlador.crearConexion(perfilAId, perfilBId);
 
 if (respuesta.resultado.correcto) {
@@ -152,7 +152,7 @@ if (respuesta.resultado.correcto) {
 
 ```cpp
 if (usuarioConfirmo) {
-    rsm::ResultadoOperacion resultado = controlador.eliminarPerfil(idPerfil);
+    soundbridge::ResultadoOperacion resultado = controlador.eliminarPerfil(idPerfil);
 
     if (resultado.correcto) {
         controlador.guardarDatos();
@@ -166,7 +166,7 @@ if (usuarioConfirmo) {
 ## 10. Eliminar conexión
 
 ```cpp
-rsm::ResultadoOperacion resultado =
+soundbridge::ResultadoOperacion resultado =
     controlador.eliminarConexion(perfilAId, perfilBId);
 
 if (resultado.correcto) {
@@ -180,7 +180,7 @@ if (resultado.correcto) {
 ## 11. Mostrar una gráfica
 
 ```cpp
-rsm::GraficaDTO grafica = controlador.obtenerGraficaPerfilesPorTipo();
+soundbridge::GraficaDTO grafica = controlador.obtenerGraficaPerfilesPorTipo();
 dibujarGrafica(grafica);
 ```
 
@@ -190,7 +190,7 @@ a los tipos de la librería visual.
 ## 12. Cierre
 
 ```cpp
-rsm::ResultadoOperacion guardado = controlador.guardarDatos();
+soundbridge::ResultadoOperacion guardado = controlador.guardarDatos();
 
 if (guardado.correcto) {
     cerrarVentanaPrincipal();

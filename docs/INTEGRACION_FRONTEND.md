@@ -15,11 +15,11 @@ forman parte de la compilación normal.
 Toda interfaz nueva debe trabajar con:
 
 ```cpp
-rsm::ControladorAplicacion
+soundbridge::ControladorAplicacion
 ```
 
 El controlador posee la red y devuelve DTO por valor. No deben usarse
-`RedSocialMusical`, `PersistenciaTexto`, `Perfil*` ni `Conexion*` desde botones,
+`SoundBridge`, `PersistenciaTexto`, `Perfil*` ni `Conexion*` desde botones,
 formularios o ventanas.
 
 ## Flujo de inicio
@@ -53,14 +53,14 @@ interfaz.
 - `IVisualizadorGraficas`: contrato opcional para un visualizador.
 - `VisualizadorNoDisponible`: implementación temporal de consola.
 
-Ninguno introduce una dependencia visual dentro de `rsm_core`.
+Ninguno introduce una dependencia visual dentro de `soundbridge_core`.
 
 ## Pasos cuando se elija una tecnología
 
 1. Crear un target separado para la aplicación visual.
-2. Enlazarlo con `rsm_core`.
+2. Enlazarlo con `soundbridge_core`.
 3. Crear ventanas y formularios.
 4. Conectar eventos con `ControladorAplicacion`.
 5. Implementar la presentación de `GraficaDTO`.
 6. Completar `GraphicsVendor.cmake` solo con la dependencia real.
-7. Mantener `RSM_ENABLE_GRAPHICS=OFF` como opción válida.
+7. Mantener `SOUNDBRIDGE_ENABLE_GRAPHICS=OFF` como opción válida.

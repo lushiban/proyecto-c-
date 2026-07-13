@@ -5,17 +5,17 @@
 La interfaz futura debe incluir:
 
 ```cpp
-#include "rsm/application/ControladorAplicacion.hpp"
+#include "soundbridge/application/ControladorAplicacion.hpp"
 ```
 
 Luego debe crear una sola instancia:
 
 ```cpp
-rsm::ControladorAplicacion controlador;
+soundbridge::ControladorAplicacion controlador;
 ```
 
 El controlador posee internamente la red. La interfaz no debe crear
-`RedSocialMusical`, acceder a arreglos internos ni llamar directamente a
+`SoundBridge`, acceder a arreglos internos ni llamar directamente a
 `PersistenciaTexto`.
 
 ## 2. Resultados y modelos de salida
@@ -73,7 +73,7 @@ Crear el acceso principal al núcleo.
 ### Método
 
 ```cpp
-rsm::ControladorAplicacion controlador;
+soundbridge::ControladorAplicacion controlador;
 ```
 
 ### Entradas
@@ -136,7 +136,7 @@ fallida conserva el estado anterior.
 ### Ejemplo
 
 ```cpp
-rsm::ResultadoOperacion carga = controlador.cargarDatos();
+soundbridge::ResultadoOperacion carga = controlador.cargarDatos();
 mostrarMensaje(carga.correcto, carga.mensaje);
 ```
 
@@ -315,7 +315,7 @@ Ninguno.
 ### Ejemplo
 
 ```cpp
-std::vector<rsm::PerfilDTO> perfiles = controlador.obtenerPerfiles();
+std::vector<soundbridge::PerfilDTO> perfiles = controlador.obtenerPerfiles();
 ```
 
 ---

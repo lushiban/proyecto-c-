@@ -39,20 +39,20 @@ Comando:
 
 ```bash
 cmake -S . -B build-core \
-  -DRSM_ENABLE_GRAPHICS=OFF \
-  -DRSM_BUILD_TESTS=OFF \
+  -DSOUNDBRIDGE_ENABLE_GRAPHICS=OFF \
+  -DSOUNDBRIDGE_BUILD_TESTS=OFF \
   -DCMAKE_CXX_FLAGS="-Werror"
-cmake --build build-core --target rsm_core --parallel
+cmake --build build-core --target soundbridge_core --parallel
 ```
 
-Resultado: `rsm_core` compiló correctamente sin `rsm_console` ni front-end.
+Resultado: `soundbridge_core` compiló correctamente sin `soundbridge_console` ni front-end.
 
 ## GCC estricto
 
 ```bash
 cmake -S . -B build-final \
-  -DRSM_ENABLE_GRAPHICS=OFF \
-  -DRSM_BUILD_TESTS=ON \
+  -DSOUNDBRIDGE_ENABLE_GRAPHICS=OFF \
+  -DSOUNDBRIDGE_BUILD_TESTS=ON \
   -DCMAKE_CXX_FLAGS="-Werror"
 cmake --build build-final --parallel
 ctest --test-dir build-final --output-on-failure
@@ -97,7 +97,7 @@ No se encontraron.
 
 ## Soporte gráfico pendiente
 
-Se comprobó `RSM_ENABLE_GRAPHICS=ON`. CMake se detuvo intencionalmente con un
+Se comprobó `SOUNDBRIDGE_ENABLE_GRAPHICS=ON`. CMake se detuvo intencionalmente con un
 mensaje que indica que la tecnología no está seleccionada. Esta verificación
 confirma que no se enlaza una dependencia visual inventada.
 
