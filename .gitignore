@@ -1,0 +1,23 @@
+# Carpetas y archivos generados al compilar
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ejecutables y archivos objeto
+*.exe
+*.out
+*.o
+*.obj
+soundbridge
+
+# Datos personales creados durante la ejecucion
+datos.txt
+
+# Editores y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
