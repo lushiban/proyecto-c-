@@ -1,4 +1,3 @@
 VERSION|1
-NEXT_PROFILE_ID|3
-PROFILE|1|OYENTE|efs|34|sdf|y;h;g;f;n|23|pene
-PROFILE|2|OYENTE|Eduardo|19|Rock|Indie;Pop;hip hop|25|Spotify
+NEXT_PROFILE_ID|2
+PROFILE|1|FAN_CLUB|Pancho|24|Rock|Regueton|N|1|Quito
