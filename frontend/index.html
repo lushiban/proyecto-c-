@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SoundBridge: conecta personas a través de sus gustos musicales.">
+    <meta name="theme-color" content="#8b6bc5">
+    <title>SoundBridge · Tu comunidad musical</title>
+    <!-- Frontend diseñado y generado con asistencia de inteligencia artificial (OpenAI). -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Navegación principal">
+            <a class="brand" href="#inicio" data-go="inicio" aria-label="Ir al inicio">
+                <span class="brand-mark" aria-hidden="true">♫</span>
+                <span>
+                    <strong>SoundBridge</strong>
+                    <small>find your frequency</small>
+                </span>
+            </a>
+
+            <nav class="navigation">
+                <button class="nav-item active" type="button" data-section="inicio">
+                    <span class="nav-icon" aria-hidden="true">⌂</span>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-item" type="button" data-section="perfiles">
+                    <span class="nav-icon" aria-hidden="true">♡</span>
+                    <span>Perfiles</span>
+                    <span class="nav-count" id="navProfileCount">0</span>
+                </button>
+                <button class="nav-item" type="button" data-section="conexiones">
+                    <span class="nav-icon" aria-hidden="true">⌁</span>
+                    <span>Conexiones</span>
+                    <span class="nav-count" id="navConnectionCount">0</span>
+                </button>
+                <button class="nav-item" type="button" data-section="afinidades">
+                    <span class="nav-icon" aria-hidden="true">✦</span>
+                    <span>Afinidades</span>
+                </button>
+                <button class="nav-item" type="button" data-section="datos">
+                    <span class="nav-icon" aria-hidden="true">◫</span>
+                    <span>Datos</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-note">
+                <span class="sparkle" aria-hidden="true">✦</span>
+                <p><strong>Tu música habla.</strong><br>Encuentra personas que vibran parecido a ti.</p>
+            </div>
+
+            <p class="ai-disclosure">
+                Interfaz frontend creada con asistencia de IA.
+            </p>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow" id="pageEyebrow">TU ESPACIO MUSICAL</p>
+                    <h1 id="pageTitle">Hola, bienvenida/o a SoundBridge</h1>
+                </div>
+                <div class="topbar-actions">
+                    <span class="server-pill" id="serverStatus">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Backend conectado
+                    </span>
+                    <button class="button button-primary" type="button" id="openProfileDialog">
+                        <span aria-hidden="true">＋</span> Nuevo perfil
+                    </button>
+                </div>
+            </header>
+
+            <section class="page active" id="section-inicio" aria-labelledby="homeHeading">
+                <div class="hero-card">
+                    <div class="hero-copy">
+                        <span class="soft-label">SOUNDBRIDGE COMMUNITY</span>
+                        <h2 id="homeHeading">Conecta por lo que escuchas,<br><em>quédate por lo que compartes.</em></h2>
+                        <p>Crea perfiles, descubre afinidades musicales y construye conexiones desde una experiencia sencilla y bonita.</p>
+                        <div class="hero-actions">
+                            <button class="button button-light" type="button" id="heroCreateProfile">Crear mi primer perfil</button>
+                            <button class="button button-ghost-light" type="button" data-go="afinidades">Explorar afinidades</button>
+                        </div>
+                    </div>
+                    <div class="vinyl-scene" aria-hidden="true">
+                        <div class="orbit orbit-one"><span>♪</span></div>
+                        <div class="orbit orbit-two"><span>✦</span></div>
+                        <div class="vinyl">
+                            <div class="vinyl-ring"></div>
+                            <div class="vinyl-label">SB</div>
+                        </div>
+                        <div class="music-card floating-card-one">
+                            <span>now playing</span>
+                            <strong>your favorite vibe</strong>
+                        </div>
+                        <div class="music-card floating-card-two">
+                            <span class="mini-heart">♥</span>
+                            <strong>match found</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid" aria-label="Resumen de SoundBridge">
+                    <article class="stat-card">
+                        <div class="stat-icon lavender" aria-hidden="true">♡</div>
+                        <div><span>Perfiles</span><strong id="statProfiles">0</strong></div>
+                        <small>personas en la comunidad</small>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon pink" aria-hidden="true">⌁</div>
+                        <div><span>Conexiones</span><strong id="statConnections">0</strong></div>
+                        <small>puentes musicales creados</small>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon peach" aria-hidden="true">♪</div>
+                        <div><span>Artistas</span><strong id="statArtists">0</strong></div>
+                        <small>creadores registrados</small>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon mint" aria-hidden="true">✦</div>
+                        <div><span>Fan clubs</span><strong id="statFanClubs">0</strong></div>
+                        <small>comunidades de fans</small>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <article class="panel panel-wide">
+                        <div class="panel-heading">
+                            <div>
+                                <p class="eyebrow">COMUNIDAD</p>
+                                <h3>Perfiles recientes</h3>
+                            </div>
+                            <button class="text-button" type="button" data-go="perfiles">Ver todos →</button>
+                        </div>
+                        <div class="mini-profile-list" id="recentProfiles"></div>
+                    </article>
+
+                    <article class="panel insight-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <p class="eyebrow">TIP DEL DÍA</p>
+                                <h3>Una afinidad real</h3>
+                            </div>
+                            <span class="sparkle-badge" aria-hidden="true">✦</span>
+                        </div>
+                        <p>La compatibilidad combina gustos principales, gustos secundarios, edad y el dato especial de cada clase hija.</p>
+                        <button class="button button-secondary full-width" type="button" data-go="afinidades">Calcular coincidencias</button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="page" id="section-perfiles" aria-labelledby="profilesHeading">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">PERSONAS Y SONIDOS</p>
+                        <h2 id="profilesHeading">Perfiles musicales</h2>
+                        <p>Conoce a cada integrante de la comunidad.</p>
+                    </div>
+                    <label class="search-box">
+                        <span aria-hidden="true">⌕</span>
+                        <input type="search" id="profileSearch" placeholder="Buscar por nombre o gusto…" autocomplete="off">
+                    </label>
+                </div>
+                <div class="profile-grid" id="profileGrid"></div>
+            </section>
+
+            <section class="page" id="section-conexiones" aria-labelledby="connectionsHeading">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">CREAR PUENTES</p>
+                        <h2 id="connectionsHeading">Conexiones</h2>
+                        <p>Selecciona dos perfiles y deja que SoundBridge calcule su afinidad.</p>
+                    </div>
+                </div>
+
+                <div class="connection-layout">
+                    <article class="panel connection-builder">
+                        <div class="connection-title">
+                            <span class="connection-icon" aria-hidden="true">⌁</span>
+                            <div>
+                                <h3>Nueva conexión</h3>
+                                <p>Une dos frecuencias musicales.</p>
+                            </div>
+                        </div>
+                        <form id="connectionForm">
+                            <label>
+                                Primer perfil
+                                <select id="firstProfileSelect" name="idPrimerPerfil" required></select>
+                            </label>
+                            <div class="bridge-divider" aria-hidden="true">
+                                <span></span><strong>♡</strong><span></span>
+                            </div>
+                            <label>
+                                Segundo perfil
+                                <select id="secondProfileSelect" name="idSegundoPerfil" required></select>
+                            </label>
+                            <button class="button button-primary full-width" id="connectButton" type="submit">Crear conexión</button>
+                        </form>
+                    </article>
+
+                    <article class="panel connection-list-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <p class="eyebrow">HISTORIAL</p>
+                                <h3>Conexiones guardadas</h3>
+                            </div>
+                            <span class="count-bubble" id="connectionBubble">0</span>
+                        </div>
+                        <div class="connection-list" id="connectionList"></div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="page" id="section-afinidades" aria-labelledby="matchesHeading">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">MATCH MUSICAL</p>
+                        <h2 id="matchesHeading">Mejores afinidades</h2>
+                        <p>Elige un perfil para ordenar sus coincidencias de mayor a menor.</p>
+                    </div>
+                    <label class="compact-select">
+                        Perfil base
+                        <select id="affinityProfileSelect"></select>
+                    </label>
+                </div>
+
+                <article class="affinity-hero" id="affinitySummary">
+                    <div class="affinity-placeholder">
+                        <span aria-hidden="true">✦</span>
+                        <h3>Selecciona un perfil</h3>
+                        <p>Aquí aparecerán sus mejores coincidencias.</p>
+                    </div>
+                </article>
+                <div class="affinity-list" id="affinityList"></div>
+            </section>
+
+            <section class="page" id="section-datos" aria-labelledby="dataHeading">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">PERSISTENCIA</p>
+                        <h2 id="dataHeading">Datos y aplicación</h2>
+                        <p>Controla el archivo local y el servidor de SoundBridge.</p>
+                    </div>
+                </div>
+
+                <div class="data-grid">
+                    <article class="panel action-card">
+                        <span class="action-card-icon lavender" aria-hidden="true">↓</span>
+                        <h3>Guardar datos</h3>
+                        <p>Escribe perfiles y conexiones en <code>datos.txt</code>. Los cambios también se guardan automáticamente.</p>
+                        <button class="button button-secondary full-width" type="button" id="saveDataButton">Guardar ahora</button>
+                    </article>
+                    <article class="panel action-card">
+                        <span class="action-card-icon peach" aria-hidden="true">↻</span>
+                        <h3>Volver a cargar</h3>
+                        <p>Reemplaza el estado visible por el contenido actual de <code>datos.txt</code>.</p>
+                        <button class="button button-secondary full-width" type="button" id="reloadDataButton">Cargar archivo</button>
+                    </article>
+                    <article class="panel action-card danger-card">
+                        <span class="action-card-icon pink" aria-hidden="true">×</span>
+                        <h3>Cerrar aplicación</h3>
+                        <p>Guarda la información y detiene de forma ordenada el servidor local de C++.</p>
+                        <button class="button button-danger full-width" type="button" id="shutdownButton">Cerrar SoundBridge</button>
+                    </article>
+                </div>
+
+                <article class="transparency-card">
+                    <div class="ai-orb" aria-hidden="true">AI</div>
+                    <div>
+                        <p class="eyebrow">TRANSPARENCIA ACADÉMICA</p>
+                        <h3>Frontend desarrollado con asistencia de inteligencia artificial</h3>
+                        <p>La estructura visual, los estilos CSS y la interacción JavaScript de esta interfaz fueron generados con asistencia de IA (OpenAI) y se integraron al backend C++ del proyecto. Esta declaración también aparece en el README y en CONTRIBUTING.md.</p>
+                    </div>
+                </article>
+            </section>
+
+            <footer class="main-footer">
+                <span>SoundBridge · Eduardo Tapia &amp; Paula Gallardo</span>
+                <span>Frontend creado con asistencia de IA · Backend C++17</span>
+            </footer>
+        </main>
+    </div>
+
+    <dialog class="profile-dialog" id="profileDialog">
+        <form method="dialog" class="dialog-shell" id="profileForm">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">NUEVA FRECUENCIA</p>
+                    <h2>Crear perfil musical</h2>
+                    <p>Cuéntanos un poco sobre sus gustos.</p>
+                </div>
+                <button class="icon-button" type="button" id="closeProfileDialog" aria-label="Cerrar">×</button>
+            </div>
+
+            <div class="form-grid">
+                <label>
+                    Tipo de perfil
+                    <select name="tipo" id="profileType" required>
+                        <option value="Oyente">Oyente</option>
+                        <option value="Artista">Artista</option>
+                        <option value="Productor">Productor</option>
+                        <option value="FanClub">Fan club</option>
+                    </select>
+                </label>
+                <label>
+                    Nombre
+                    <input type="text" name="nombre" maxlength="60" placeholder="Ej. Luna" required>
+                </label>
+                <label>
+                    Edad
+                    <input type="number" name="edad" min="13" max="120" value="18" required>
+                </label>
+                <label>
+                    Gusto principal
+                    <input type="text" name="gustoPrincipal" maxlength="60" placeholder="Ej. indie pop" required>
+                </label>
+                <label>
+                    Géneros secundarios
+                    <input type="text" name="generosSecundarios" maxlength="120" placeholder="Ej. R&amp;B, jazz" required>
+                </label>
+                <div class="dynamic-fields" id="specialFields"></div>
+            </div>
+
+            <p class="form-hint">No se permite el símbolo <code>|</code> porque se utiliza para guardar el archivo.</p>
+            <div class="dialog-actions">
+                <button class="button button-muted" type="button" id="cancelProfileDialog">Cancelar</button>
+                <button class="button button-primary" type="submit">Crear perfil</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+    <div class="shutdown-screen" id="shutdownScreen" hidden>
+        <div>
+            <span class="brand-mark large" aria-hidden="true">♫</span>
+            <h2>SoundBridge se cerró correctamente</h2>
+            <p>Tus datos quedaron guardados. Ya puedes cerrar esta pestaña.</p>
+        </div>
+    </div>
+
+    <script src="/app.js" defer></script>
+</body>
+</html>
